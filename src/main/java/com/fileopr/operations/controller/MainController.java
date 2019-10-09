@@ -1,7 +1,8 @@
 package com.fileopr.operations.controller;
 
-import com.exercise.model.Employee;
-import com.exercise.model.Storage;
+
+import com.fileopr.operations.models.Employee;
+import com.fileopr.operations.models.Storage;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
