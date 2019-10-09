@@ -81,7 +81,9 @@ public class Storage {
             map= (HashMap<Integer,Employee>)ois.readObject();
             ois.close();
             fis.close();
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("error");
+        }
         return map;
     }
 
@@ -94,6 +96,8 @@ public class Storage {
             oos.flush();
             oos.close();
             fos.close();
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("error");
+        }
     }
 }

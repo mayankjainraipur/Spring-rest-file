@@ -1,9 +1,10 @@
 package com.fileopr.operations.models;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Student{
+public class Student implements Serializable {
 
     private String name;     // first name
     private String email;     // email address
