@@ -10,12 +10,12 @@ public class Storage {
     public boolean addEmployee(Employee emp) {
         if(emp!=null && this.checkData(emp)!=false)
         {
-            map=readfile();
+            map=readFile();
             if (map == null){
                 map = new HashMap<Integer, Employee>();
             }
             map.put(emp.getId(),emp);
-            writefile(map);
+            writeFile(map);
             return true;
         }
         return false;
@@ -26,7 +26,7 @@ public class Storage {
     }
 
     public Employee getEmployee(int id) {
-        map=readfile();
+        map=readFile();
         if (map != null){
             Employee emp = map.get(id);
             return emp;
@@ -35,7 +35,7 @@ public class Storage {
     }
 
     public boolean updateEmployee(Employee emp) {
-        map=readfile();
+        map=readFile();
         if (map != null){
             Employee emp1 = map.get(emp.getId());
             if (emp1.getName() != ""){
@@ -43,7 +43,7 @@ public class Storage {
                 emp1.setCompany(emp.getCompany());
                 emp1.setDob(emp.getDob());
                 emp1.setSalary(emp.getSalary());
-                writefile(map);
+                writeFile(map);
                 return true;
             }
         }
@@ -51,27 +51,29 @@ public class Storage {
     }
 
     public boolean deleteEmployee(int id) {
-        map=readfile();
+        map=readFile();
         if (map !=null){
             map.remove(id);
-            writefile(map);
+            writeFile(map);
             return true;
         }
         return false;
     }
 
     public List<Employee> listAll() {
-        map=readfile();
         List<Employee>emp = new ArrayList<>();
-        Set<Integer> id = map.keySet();
-        for(Integer i:id)
-        {
-            emp.add(map.get(i));
+        map=readFile();
+        if (map!=null){
+            Set<Integer> id = map.keySet();
+            for(Integer i:id)
+            {
+                emp.add(map.get(i));
+            }
         }
         return emp;
     }
 
-    private HashMap<Integer,Employee> readfile(){
+    private HashMap<Integer,Employee> readFile(){
         try{
             File toRead=new File("output");
             FileInputStream fis=new FileInputStream(toRead);
@@ -83,7 +85,7 @@ public class Storage {
         return map;
     }
 
-    private void writefile(HashMap<Integer,Employee> map){
+    private void writeFile(HashMap<Integer,Employee> map){
         try{
             File fileOne=new File("output");
             FileOutputStream fos=new FileOutputStream(fileOne);
