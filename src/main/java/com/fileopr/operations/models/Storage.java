@@ -5,12 +5,15 @@ import java.util.*;
 
 public class Storage {
 
-    HashMap<Integer, Employee> map;
+    HashMap<Integer, Employee> map = null;
 
     public boolean addEmployee(Employee emp) {
         if(emp!=null && this.checkData(emp)!=false)
         {
             map=readfile();
+            if (map == null){
+                map = new HashMap<Integer, Employee>();
+            }
             map.put(emp.getId(),emp);
             writefile(map);
             return true;
@@ -24,26 +27,37 @@ public class Storage {
 
     public Employee getEmployee(int id) {
         map=readfile();
-        Employee emp = map.get(id);
-        return emp;
+        if (map != null){
+            Employee emp = map.get(id);
+            return emp;
+        }
+        return new Employee();
     }
 
     public boolean updateEmployee(Employee emp) {
         map=readfile();
-        Employee emp1 = map.get(emp.getId());
-        emp1.setName(emp.getName());
-        emp1.setCompany(emp.getCompany());
-        emp1.setDob(emp.getDob());
-        emp1.setSalary(emp.getSalary());
-        writefile(map);
-        return true;
+        if (map != null){
+            Employee emp1 = map.get(emp.getId());
+            if (emp1.getName() != ""){
+                emp1.setName(emp.getName());
+                emp1.setCompany(emp.getCompany());
+                emp1.setDob(emp.getDob());
+                emp1.setSalary(emp.getSalary());
+                writefile(map);
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean deleteEmployee(int id) {
         map=readfile();
-        map.remove(id);
-        writefile(map);
-        return true;
+        if (map !=null){
+            map.remove(id);
+            writefile(map);
+            return true;
+        }
+        return false;
     }
 
     public List<Employee> listAll() {
