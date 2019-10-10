@@ -33,12 +33,14 @@ public class MainController {
             method=RequestMethod.POST,
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity addEmployee(
+            @RequestParam(name="id",required = true) int id,
             @RequestParam(name="name",required = true) String name,
             @RequestParam(name="salary",required = true) double salary,
             @RequestParam(name="company",required = true) String company,
             @RequestParam(name="dob",required = true) String dob) throws ParseException {
         Storage str = new Storage();
         Employee emp = new Employee();
+        emp.setId(id);
         emp.setName(name);
         emp.setCompany(company);
         emp.setSalary(salary);
