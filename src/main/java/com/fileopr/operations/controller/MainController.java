@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.sql.Date;
+import java.util.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @RestController
@@ -34,14 +36,15 @@ public class MainController {
             @RequestParam(name="name",required = true) String name,
             @RequestParam(name="salary",required = true) double salary,
             @RequestParam(name="company",required = true) String company,
-            @RequestParam(name="dob",required = true) Date dob)
-    {
+            @RequestParam(name="dob",required = true) String dob) throws ParseException {
         Storage str = new Storage();
         Employee emp = new Employee();
         emp.setName(name);
         emp.setCompany(company);
         emp.setSalary(salary);
-        emp.setDob(dob);
+        SimpleDateFormat fs = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = fs.parse(dob);
+        emp.setDob(date);
         boolean res = str.addEmployee(emp);
         if(res)
             return new ResponseEntity(HttpStatus.OK);
